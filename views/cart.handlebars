@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Previa</title>
+</head>
+<body>
+     <div class="row-md-4 d-flex align-items-center justify-content-center">
+                 <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="/login">Login</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link text-black" href="/register">Registrarse</a>
+                     </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-black" href="/realtimeProducts">Formulario</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link text-black" href="/chat">Chat</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link text-black" href="/products">Productos</a>
+                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="/profile">Tu perfil</a>
+                     </li>
+                 </ul>
+            </div>
+    <h1>Carrito</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+  {{#each products.payload}}
+ <tr>
+    <td>
+      <a href="/products/{{this._id}}" class="text-decoration-none">
+      <img src="{{this.img}}" alt="{{this.nombre}}" class="img-fluid">
+      </a>
+      </td>
+      <td>
+    {{this.product.nombre}} - {{this.product.precio}} - Cantidad: {{this.quantity}}
+    </td>
+    <td><button class="btn" onclick="eliminarProducto('{{product._id}}')">Eliminar</button></td>
+ </tr>
+  {{/each}}
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+<script src="../src/public/cart.js"></script>
+</html>

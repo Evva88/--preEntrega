@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../src/public/css/color.css">
+  <title>Tu Previa</title>
+</head>
+<body>
+     <div class="row-md-4 d-flex align-items-center justify-content-center">
+                 <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="/login">Login</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link text-black" href="/register">Registrarse</a>
+                     </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-black" href="/realtimeProducts">Formulario</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link text-black" href="/chat">Chat</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link text-black" href="/products">Productos</a>
+                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="/profile">Tu perfil</a>
+                     </li>
+                 </ul>
+            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h1 class="color1">Restaurá tu Contraseña</h1>
+            <form class="color1" action="/api/email/sendRestoreLink" method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Correo Electrónico</label>
+                    <input type="email" name="email" class="form-control" id="email">
+                </div>
+                <button type="submit" class="botons" id="btnRestore" name="btnRestore">Restaurar</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../src/public/js/restore.js"></script>
+</html>
