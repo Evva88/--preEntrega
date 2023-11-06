@@ -181,3 +181,8 @@ h1, h2, h3{
   background-color: #fcbdfe;
   text-align: center;
 }
+
+.error-message {
+  color: red;
+  display: none;
+}

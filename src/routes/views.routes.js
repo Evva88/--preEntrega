@@ -115,6 +115,12 @@ viewsRouter.get("/restore", async (req, res) => {
 
 viewsRouter.post("/api/email/sendRestoreLink", sendPasswordRecoveryEmail);
 
+// Ruta para cambiar la contraseña
+viewsRouter.get("/reset-password", (req, res) => {
+  const token = req.query.token;
+  res.render("reset-password");
+});
+
 viewsRouter.get("/faillogin", (req, res) => {
   res.status(401).json({
     status: "error",
