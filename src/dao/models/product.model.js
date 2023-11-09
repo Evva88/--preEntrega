@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
 const productSchema = new mongoose.Schema({
-  id: Number,
   title: String,
   description: String,
   price: Number,
@@ -10,6 +9,7 @@ const productSchema = new mongoose.Schema({
   stock: Number,
   category: String,
   thumbnail: String,
+  uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Referencia al usuario que subió el producto
 });
 
 productSchema.plugin(mongoosePaginate);

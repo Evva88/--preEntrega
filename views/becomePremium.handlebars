@@ -1,0 +1,75 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../src/public/css/color.css">
+    <title>Tu Previa</title>
+</head>
+
+<body>
+    <div class="row-md-4 d-flex align-items-center justify-content-center">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link text-black" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black" href="/register">Registrarse</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black" href="/realtimeProducts">Formulario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black" href="/chat">Chat</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black" href="/products">Productos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black" href="/profile">Tu perfil</a>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <div class="user-data">
+                    <h1 class="color1">Bienvenido, {{user.name}} {{user.first_name}}</h1>
+                    <p class="color2">Tu correo electrónico es: {{user.email}}</p>
+                    <p class="color2">Tu rol es: {{user.role}}</p>
+                </div>
+                <div class="form-register">
+                    <label class="form-label"></label>
+                    <div class="inputContainer">
+                        <svg viewBox="0 0 16 16" fill="#2e2e2e" height="16" width="16"
+                            xmlns="http://www.w3.org/2000/svg" class="inputIcon">
+                            <path d="..."></path>
+                        </svg>
+                        <input type="text" class="form-control" id="email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-register">
+                    <label class="form-label"></label>
+                    <div class="inputContainer">
+                        <svg viewBox="0 0 16 16" fill="#2e2e2e" height="16" width="16"
+                            xmlns="http://www.w3.org/2000/svg" class="inputIcon">
+                            <path d="..."></path>
+                        </svg>
+                        <input type="password" class="form-control" id="password" placeholder="Contraseña">
+                    </div>
+                </div>
+                 <div class="mb-3">
+                  <div class="color1">
+                        <button type="submit" class="botons" id="premiumButton">Convertite en Premium</button>
+                  </div>
+               </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+<script src="../src/public/js/becomePremium.js"></script>
+
+</html>

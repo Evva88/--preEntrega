@@ -1,9 +1,8 @@
 import { userModel } from "./models/user.model.js";
 import { createHash, isValidPassword } from "../midsIngreso/bcrypt.js";
 
-
 class UserManager {
-  async addUser({ first_name, last_name, email, age, password, role, cart}) {
+  async addUser({ first_name, last_name, email, age, password, role, cart, isPremium }) {
     try {
       const existingUser = await userModel.findOne({ email });
 
@@ -20,7 +19,8 @@ class UserManager {
         age,
         password: hashedPassword,
         role,
-        cart
+        cart,
+        isPremium,
       });
 
       console.log("User added!", user);
@@ -30,22 +30,25 @@ class UserManager {
       throw error;
     }
   }
-    async login(user, pass) {
-      try {
-        const userLogged = await userModel.findOne({ email: user });
+
+  async login(user, pass) {
+    try {
+      const userLogged = await userModel.findOne({ email: user });
   
-        if (userLogged && isValidPassword(userLogged, pass)) {
-          const role =
-            userLogged.email === "adminCoder@coder.com" ? "admin" : "usuario";
+      if (userLogged && isValidPassword(userLogged, pass)) {
+        const role =
+          userLogged.email === "adminCoder@coder.com" ? "admin" : "usuario";
   
-          return userLogged;
-        }
-        return null;
-      } catch (error) {
-        console.error("Error durante el login:", error);
-        throw error;
+        return userLogged; 
       }
+      return null;
+    } catch (error) {
+      console.error("Error during login:", error);
+      throw error;
     }
+  }
+  
+
   async restorePassword(email, hashedPassword) {
     try {
       const user = await userModel.findOne({ email });
@@ -65,7 +68,9 @@ class UserManager {
       return false;
     }
   }
-
 }
+
+
+const userManager = new UserManager();
 
 export default UserManager;

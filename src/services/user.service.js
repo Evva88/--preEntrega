@@ -2,6 +2,7 @@ import UserManager from "../dao/userManager.js";
 import { ADMIN_EMAIL, ADMIN_PASSWORD } from "../config/configs.js";
 import CartManager from "../dao/cartManager.js";
 
+
 class UserService {
   constructor() {
     this.userManager = new UserManager();
@@ -15,7 +16,7 @@ class UserService {
       if (cartResponse.status !== "ok") {
         return { status: "error", message: "Error creating cart" };
       }
-      const role =
+      const userRole =
         email == ADMIN_EMAIL &&
         password === ADMIN_PASSWORD
           ? "admin"
@@ -28,7 +29,7 @@ class UserService {
         email,
         age,
         password,
-        role,
+        role: userRole, // Usar la variable userRole en lugar de role
         cart: cartId,
       });
 
@@ -43,10 +44,20 @@ class UserService {
     }
   }
 
+  async becomePremium(userId) {
+    try {
+      const updatedUser = await this.userManager.becomePremium(userId);
+
+      return { status: "success", user: updatedUser };
+    } catch (error) {
+      console.error("Error becoming premium:", error);
+      return { status: "error", message: "Internal Server Error" };
+    }
+  }
+
   async restorePassword(user, hashedPassword) {
     return await this.userManager.restorePassword(user, hashedPassword);
   }
-
 }
 
 export default UserService;

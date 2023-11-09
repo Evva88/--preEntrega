@@ -3,6 +3,8 @@ import ProductManager from "../dao/ProductManager.js";
 import CartManager from "../dao/cartManager.js";
 import cartController from "../controllers/cart.controller.js";
 import { sendPasswordRecoveryEmail } from "../controllers/messages.controller.js";
+import UserController from '../controllers/user.controller.js';
+import UserService from "../services/user.service.js";
 
 const checkSession = (req, res, next) => {
   req.logger.info("Checking session:", req.session);
@@ -28,6 +30,8 @@ const checkAlreadyLoggedIn = (req, res, next) => {
 const viewsRouter = express.Router();
 const PM = new ProductManager();
 const CM = new CartManager();
+const userService = new UserService(); 
+const userController = new UserController(userService);
 
 async function loadUserCart(req, res, next) {
   if (req.session && req.session.user) {
@@ -134,5 +138,12 @@ viewsRouter.get("/failregister", async (req, res) => {
     message: "Error! No se pudo registar el Usuario!",
   });
 });
+
+// Ruta para mostrar la vista de becomePremium
+viewsRouter.get("/profile/becomePremium", checkSession, userController.showBecomePremiumView);
+
+// Ruta para convertir a un usuario en premium
+viewsRouter.post("/profile/becomePremium", checkSession, userController.becomePremium);
+
 
 export default viewsRouter;

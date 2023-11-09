@@ -60,6 +60,12 @@ socket.on("product_deleted", function (data) {
 
 document.getElementById("productForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+   // Verificar si el usuario tiene el rol "premium"
+   const userRole = getUserRole(); 
+   if (userRole !== "premium") {
+     console.log("Error: Solo los usuarios premium pueden agregar productos.");
+     return; 
+   }
 
   const title = document.getElementById("title").value;
   const description = document.getElementById("description").value;

@@ -119,6 +119,7 @@ h1, h2, h3{
 }
 
 .botons {
+  margin-top: 10px;
   border: 1px solid #EA6AF9;
   border-radius: 10px;
   background-color: #fcbdfe;

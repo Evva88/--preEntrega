@@ -66,6 +66,7 @@ class ProductController {
     } = req.body;
     req.logger.info("Received thumbnail:", thumbnail);
 
+
     if (!title) {
       res.status(400).send({
         status: "error",
@@ -98,7 +99,8 @@ class ProductController {
       return false;
     }
 
-    status = !status && true;
+    status = status || true;
+
 
     if (!stock) {
       res.status(400).send({
@@ -123,17 +125,30 @@ class ProductController {
       });
       return false;
     }
-    try {
-      const wasAdded = await this.productService.addProduct({
-        title,
-        description,
-        code,
-        price,
-        status,
-        stock,
-        category,
-        thumbnail,
+    const user = req.session.user;
+
+    if (!user || !user.isPremium) {
+      res.status(403).send({
+        status: "error",
+        message: "Solo los usuarios premium pueden subir productos",
       });
+      return;
+    }
+    
+    try {
+      const wasAdded = await this.productService.addProduct(
+        {
+          title,
+          description,
+          code,
+          price,
+          status,
+          stock,
+          category,
+          thumbnail,
+        },
+        user // Pasar la información del usuario al servicio
+      );
 
       if (wasAdded && wasAdded._id) {
         req.logger.info("Producto añadido correctamente:", wasAdded);

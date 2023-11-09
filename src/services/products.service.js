@@ -5,13 +5,23 @@ class ProductService {
     this.productManager = new ProductManager();
   }
 
-  async addProduct(product) {
-    if (await this.productManager.validateCode(product.code)) {
-      console.log("Error! Code exists!");
-      return null;  
+  async addProduct(product, uploadedBy) {
+    if (!uploadedBy || !uploadedBy.isPremium) {
+      // Verificar si el usuario es premium antes de permitir la subida del producto
+      console.log("Error! User is not premium.");
+      return null;
     }
 
-    return await this.productManager.addProduct(product);
+    if (await this.productManager.validateCode(product.code)) {
+      console.log("Error! Code exists!");
+      return null;
+    }
+
+    // Agregar información sobre quién subió el producto
+    return await this.productManager.addProduct({
+      ...product,
+      uploadedBy: uploadedBy._id, // ID del usuario que subió el producto
+    });
   }
 
   async getProducts(params) {
