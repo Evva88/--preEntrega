@@ -1,0 +1,32 @@
+paths:
+  /api/carts:
+    get:
+      summary: "Obtiene todos los carritos disponibles en la aplicación."
+      tags:
+        - carts
+      responses:
+        "200":
+          description: "La operación fue exitosa."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Carts'
+        "500":
+          description: "Error interno del servidor."
+
+components:
+  schemas:
+    Carts:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: "Id autogenerado de MongoDB."
+        uploadedBy:
+          type: string
+          description: "ID del usuario que subió el Carrito."
+      example:
+        _id: "647fa8c9e46dbc5a20320181"
+        uploadedBy: "userId123"

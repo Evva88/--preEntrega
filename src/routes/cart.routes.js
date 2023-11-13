@@ -3,6 +3,7 @@ import CartManager from "../dao/cartManager.js";
 import cartController from "../controllers/cart.controller.js";
 import { authorization, passportCall } from "../midsIngreso/passAuth.js";
 import { userModel } from "../dao/models/user.model.js";
+import { cartModel as CarttModel } from "../dao/models/cart.model.js";
 
 const cartsRouter = Router();
 const CM = new CartManager();
@@ -41,4 +42,15 @@ cartsRouter.post("/:cid/purchase", (req, res, next) => {
       return res.status(500).json({ error: "Error interno del servidor" });
     }
   });
+
+  cartsRouter.get('/api/carts', async (req, res) => {
+    try {
+      const products = await CarttModel.find({}, { _id: 1});
+      res.status(200).json(products);
+    } catch (error) {
+      console.error('Error al obtener carrito:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  });
+  
 export default cartsRouter;

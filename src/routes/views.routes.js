@@ -6,17 +6,30 @@ import { sendPasswordRecoveryEmail } from "../controllers/messages.controller.js
 import UserController from '../controllers/user.controller.js';
 import UserService from "../services/user.service.js";
 
-const checkSession = (req, res, next) => {
+const checkSession = async (req, res, next) => {
   req.logger.info("Checking session:", req.session);
 
-  if (req.session && req.session.user) {
-    req.logger.info("Session exists:", req.session.user);
-    next();
-  } else {
-    req.logger.warn("No session found, redirecting to /login");
-    res.redirect("/login");
+  try {
+    if (!req.userService) {
+      req.userService = new UserService();
+    }
+
+    if (req.session && req.session.user) {
+      req.logger.info("Session exists:", req.session.user);
+      
+      next();
+    } else {
+      req.logger.warn("No session found, redirecting to /login");
+      res.redirect("/login");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
+
+
+
 const checkAlreadyLoggedIn = (req, res, next) => {
   if (req.session && req.session.user) {
     req.logger.info("Usuario ya autenticado, redirigiendo a /profile");
@@ -139,11 +152,8 @@ viewsRouter.get("/failregister", async (req, res) => {
   });
 });
 
-// Ruta para mostrar la vista de becomePremium
 viewsRouter.get("/profile/becomePremium", checkSession, userController.showBecomePremiumView);
 
-// Ruta para convertir a un usuario en premium
 viewsRouter.post("/profile/becomePremium", checkSession, userController.becomePremium);
-
 
 export default viewsRouter;

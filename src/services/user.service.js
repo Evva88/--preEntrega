@@ -55,6 +55,7 @@ class UserService {
     }
   }
 
+
   async restorePassword(user, hashedPassword) {
     return await this.userManager.restorePassword(user, hashedPassword);
   }

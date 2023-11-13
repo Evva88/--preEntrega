@@ -1,0 +1,56 @@
+paths:
+  /api/products:
+    get:
+      summary: "Obtiene todos los productos disponibles en la aplicación."
+      tags:
+        - products
+      responses:
+        "200":
+          description: "La operación fue exitosa."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        "500":
+          description: "Error interno del servidor."
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: "Id autogenerado de MongoDB."
+        title:
+          type: string
+          description: "Título del producto."
+        description:
+          type: string
+          description: "Descripción del producto."
+        price:
+          type: number
+          description: "Precio del producto."
+        stock:
+          type: number
+          description: "Stock del producto."
+        category:
+          type: string
+          description: "Categoría del producto."
+        thumbnail:
+          type: string
+          description: "URL de la imagen del producto."
+        uploadedBy:
+          type: string
+          description: "ID del usuario que subió el producto."
+      example:
+        _id: "647fa8c9e46dbc5a20320181"
+        title: "Producto de prueba 1"
+        description: "Descripción de prueba 1"
+        price: 19.99
+        stock: 50
+        category: "Electrónicos"
+        thumbnail: "https://example.com/product1.jpg"
+        uploadedBy: "userId123"

@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema({
   stock: Number,
   category: String,
   thumbnail: String,
-  uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Referencia al usuario que subió el producto
+  uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 productSchema.plugin(mongoosePaginate);
