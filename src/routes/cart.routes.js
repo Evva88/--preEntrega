@@ -8,6 +8,19 @@ import { cartModel as CarttModel } from "../dao/models/cart.model.js";
 const cartsRouter = Router();
 const CM = new CartManager();
 
+
+cartsRouter.get("/", async (req, res) => {
+  try {
+    const carts = await CarttModel.find({}, { _id: 1, uploadedBy: 1 });
+    console.log('Productos recuperados de la base de datos:', carts);
+    res.status(200).json(carts);
+  } catch (error) {
+    console.error('Error al obtener carrito:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+
 cartsRouter.post("/", cartController.createCart.bind(cartController));
 
 cartsRouter.get("/:cid", cartController.getCart.bind(cartController));
@@ -40,16 +53,6 @@ cartsRouter.post("/:cid/purchase", (req, res, next) => {
     } catch (error) {
       req.logger.error("Error obteniendo el carrito del usuario:", error);
       return res.status(500).json({ error: "Error interno del servidor" });
-    }
-  });
-
-  cartsRouter.get('/api/carts', async (req, res) => {
-    try {
-      const products = await CarttModel.find({}, { _id: 1});
-      res.status(200).json(products);
-    } catch (error) {
-      console.error('Error al obtener carrito:', error);
-      res.status(500).json({ error: 'Error interno del servidor' });
     }
   });
   

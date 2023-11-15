@@ -12,13 +12,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Carts'
+                  $ref: '#/components/schemas/Cart'  
         "500":
           description: "Error interno del servidor."
 
 components:
   schemas:
-    Carts:
+    Cart:
       type: object
       properties:
         _id:
@@ -30,3 +30,4 @@ components:
       example:
         _id: "647fa8c9e46dbc5a20320181"
         uploadedBy: "userId123"
+

@@ -7,14 +7,13 @@ import { createHash } from "../midsIngreso/bcrypt.js";
 
 
 class UserController {
-  constructor(userService) {
-    this.userService = userService;
-    console.log(this.userService);
+  constructor() {
+    this.userService = new UserService();
   }
   async register(req, res, next) {
     try {
       const { first_name, last_name, email, age, password, role } = req.body;
-      
+
       // Verificar si el usuario es premium
       const isPremium = req.body.isPremium || false;
 
@@ -29,7 +28,7 @@ class UserController {
         });
         return next(customError);
       }
-
+     
       const response = await this.userService.registerUser({
         first_name,
         last_name,
@@ -49,6 +48,7 @@ class UserController {
       return next(error);
     }
   }
+
 
   async becomePremium(req, res, next) {
     try {

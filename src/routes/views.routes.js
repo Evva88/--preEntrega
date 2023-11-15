@@ -83,6 +83,10 @@ viewsRouter.get("/products/:pid", async (req, res) => {
   }
 });
 
+viewsRouter.get('/cart', (req, res) => {
+  res.render('cart');
+});
+
 viewsRouter.get("/carts", loadUserCart, async (req, res) => {
   const cart = req.cart;
   if (cart) {

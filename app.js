@@ -44,7 +44,7 @@ const swaggerOptions = {
     openapi: "3.0.0",
     info: {
       title: "API",
-      documenacion: "uso de apis, productos y carritos",
+      documentation: "uso de apis, productos y carritos", 
       version: "1.0.0",
     },
   },
@@ -56,6 +56,7 @@ const swaggerOptions = {
 };
 
 const specs = swaggerJSDoc(swaggerOptions);
+app.use("/api/docs", swaggerUIExpress.serve, swaggerUIExpress.setup(specs));
 
 //Socket Server
 app.set("socketServer", socketServer);
@@ -108,7 +109,7 @@ app.use("/api/sms", smsRouter);
 app.use("/mockingproducts", mockingRouter);
 app.use("/", viewsRouter);
 app.use("/loggerTest", logRouter);
-app.use("/api/docs", swaggerUIExpress.serve, swaggerUIExpress.setup(specs));
+
 
 //Managers
 import ProductManager from "./src/dao/ProductManager.js";

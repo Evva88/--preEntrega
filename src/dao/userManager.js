@@ -1,6 +1,7 @@
 import { userModel } from "./models/user.model.js";
 import { createHash, isValidPassword } from "../midsIngreso/bcrypt.js";
 
+
 class UserManager {
   async addUser({ first_name, last_name, email, age, password, role, cart, isPremium }) {
     try {
@@ -34,20 +35,19 @@ class UserManager {
   async login(user, pass) {
     try {
       const userLogged = await userModel.findOne({ email: user });
-  
+
       if (userLogged && isValidPassword(userLogged, pass)) {
         const role =
           userLogged.email === "adminCoder@coder.com" ? "admin" : "usuario";
-  
-        return userLogged; 
+
+        return userLogged;
       }
       return null;
     } catch (error) {
-      console.error("Error during login:", error);
+      console.error("Error durante el login:", error);
       throw error;
     }
   }
-  
 
   async restorePassword(email, hashedPassword) {
     try {

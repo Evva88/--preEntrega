@@ -6,23 +6,26 @@ const obtenerIdCarrito = async () => {
     });
 
     if (!response.ok) {
-      console.error("Error obteniendo el ID del carrito");
+      console.error("Error obteniendo el ID del carrito. Estado de respuesta:", response.status);
       return null;
     }
+
     const data = await response.json();
+    console.log("ID del carrito obtenido:", data.id);
     return data.id;
   } catch (error) {
-    console.log("Error en obtener el Id del Carrito! ", error);
+    console.error("Error en obtener el ID del carrito:", error);
     return null;
   }
 };
+
 
 const agregarProductoAlCarrito = async (pid) => {
   try {
     const cid = await obtenerIdCarrito();
 
     if (!cid) {
-      console.error("El ID del carrito es inválido.");
+      console.error("El CID es undefined o null..");
       return;
     }
     
@@ -35,6 +38,14 @@ const agregarProductoAlCarrito = async (pid) => {
       console.log("Error al agregar el producto al carrito");
       return;
     } 
+    
+    Swal.fire({
+      icon: 'success',
+      title: 'Producto agregado al carrito',
+      showConfirmButton: false,
+      timer: 1500,  // Cierra automáticamente después de 1.5 segundos
+    });
+
     console.log("Se agrego el producto al carrito");
   } catch (error) {
     console.log("Error en agregar el Producto al Carrito! " + error);

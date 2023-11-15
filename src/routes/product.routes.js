@@ -14,14 +14,13 @@ const productService = new ProductsServices();
 productsRouter.get('/api/products', async (req, res) => {
   try {
     const products = await ProductModel.find({}, { _id: 1, title: 1, description: 1, price: 1, stock: 1, category: 1, thumbnail: 1, uploadedBy: 1 });
+    console.log('Productos recuperados de la base de datos:', products);
     res.status(200).json(products);
   } catch (error) {
     console.error('Error al obtener productos:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 });
-
-
 
 productsRouter.get("/", passportCall('jwt'), authorization(['admin']), productsController.getProducts.bind(productsController));
 productsRouter.get(

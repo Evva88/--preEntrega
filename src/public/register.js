@@ -15,7 +15,14 @@ const registerUser = async () => {
       });
   
       if (!response.ok) {
-          console.error("Error al registrar el usuario:", await response.text());
+        let errorMessage;
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message || "Error desconocido";
+        } catch (jsonError) {
+          errorMessage = "Error al procesar la respuesta del servidor";
+        }
+        console.error("Error al registrar el usuario:", errorMessage);
       } else {
           const data = await response.json();
           if (data.status === "success" && data.redirect) {
