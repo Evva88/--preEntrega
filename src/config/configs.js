@@ -1,25 +1,28 @@
-import dotenv from "dotenv";
-import { Command } from "commander";
+import dotenv from 'dotenv';
+import { Command } from 'commander';
 
 const program = new Command();
 
 program 
-       .option('-d', 'Variable for debug', false)
-       .option('-p <port>', 'Server port', 9090)
-       .option('--mode <mode>', 'Option mode', 'development')
+   .option('-d, --debug', 'Variable for debug', false)
+   .option('-p, --port <port>', 'Server port', 8080)
+   .option('--mode <mode>', 'Option mode', 'development')
+   .option('-t, --test', 'Option for test mode', false);
+
 program.parse();
 
-console.log("Mode Option: ", program.opts().mode);
+console.log('Mode Option: ', program.opts().mode);
 
-const environment = program.opts().mode;
+const environment = program.opts().mode || (program.opts().test ? 'test' : 'development');
 
 dotenv.config({
-       path:
-         environment === "production"
-           ? "./src/config/.env.production"
-           : "./src/config/.env.development",
-     });
-
+   path:
+      environment === 'production'
+         ? './src/config/.env.production'
+         : environment === 'test'
+            ? './src/config/.env.test'
+            : './src/config/.env.development',
+});
 export const PORT = process.env.PORT
 export const MONGODB_CNX_STR = process.env.MONGODB_CNX_STR
 export const ADMIN_EMAIL = process.env.ADMIN_EMAIL 
